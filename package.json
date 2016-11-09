@@ -1,0 +1,42 @@
+{
+  "name": "immutable-gene",
+  "version": "1.0.0",
+  "description": "helper library to remove boilplate code from reducers",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf lib",
+    "build": "npm run clean && babel src --out-dir lib",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/warash/immutable-gene.git"
+  },
+  "keywords": [
+    "immutable",
+    "redux",
+    "flux",
+    "ngrx",
+    "modifier",
+    "mutate",
+    "reducer"
+  ],
+  "author": "Michal Majewski <majewski9@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/warash/immutable-gene/issues"
+  },
+  "homepage": "https://github.com/warash/immutable-gene#readme",
+  "dependencies": {
+    "json-query": "2.2.0",
+    "lodash": "4.16.6"
+  },
+  "bundledDependencies": [
+    "json-query",
+    "lodash"
+  ],
+  "devDependencies": {
+    "@types/lodash": "4.14.38",
+    "rimraf": "2.5.4"
+  }
+}
