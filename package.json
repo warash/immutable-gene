@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf lib",
-    "build": "npm run clean && babel src --out-dir lib",
+    "build": "npm run clean && tsc",
     "prepublish": "npm run build"
   },
   "repository": {
@@ -37,6 +37,7 @@
   ],
   "devDependencies": {
     "@types/lodash": "4.14.38",
+    "@types/node": "6.0.46",
     "rimraf": "2.5.4"
   }
 }

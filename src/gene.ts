@@ -1,4 +1,4 @@
-import  jsonQuery from 'json-query';
+var jsonQuery = require('json-query');
 import { remove, assign, cloneDeep } from 'lodash';
 
 
