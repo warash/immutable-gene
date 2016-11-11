@@ -2,12 +2,6 @@
 logs
 *.log
 
-# ES6 source files
-src
-
-# Browser builds
-dist
-
 # ESLint
 .eslintrc.json
 

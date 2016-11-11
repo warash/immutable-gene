@@ -1,33 +1,99 @@
 # immutable-gene
 
-> clean your boilerplate code
+> clean your boilerplate code inside reducers
 
-Utility library that will help you clean a mess in your flux/redux reducers
+Utility library that will help you clean mess in your flux/redux reducers.
+It updates state and returns brand new object with configured modifications.
 
 ````sh
     npm install --save immutable-gene
 ````
 
-## Usage
 ## Quick start
 
 ````javascript
+    import {Gene} from 'immutable-gene';
 
-    import Gene from 'immutable-gene';
+    let state:any = { a: { b: {c: [{id:1, name:'jon'}, {id:2, name:'bob'}]}}};
+    let result = Gene.mutate(state)
+        .update('a.b.c[id=1]', {name: 'josh'})
+        .push('a.b.c', {id: 3, name: 'zofia'})
+        .value();
 
-    state = { a: { b: {c: [{id=1, name='jon'}, {id=2, name='bob'}]}}};
-    
-    let result = Genen.mutate(state)
-         .update('a.b.c[id=1]', {name: 'josh'})
-         .push('a.b.c', {id: 3, name: 'zofia'})
-         .value();
-         
-         
-    //result: 
+    //result:
     //state = { a: { b: {c: [{id=1, name='josh'}, {id=2, name='bob'}, {id=3, name='zofia'}]}}};
-
-
 ````
+
+````javascript
+    import {Gene} from 'immutable-gene';
+
+    let state:any ={groups: [
+                        {
+                          "name": "sit",
+                          "users": [
+                            {"id": 0, "name": "Lara Lowery"},
+                            {"id": 1, "name": "Gayle Whitfield"},
+                            {"id": 2, "name": "Shaw Schmidt"}]
+                        },
+                        {
+                          "name": "ad",
+                          "users": [
+                            {"id": 3, "name": "Ruby Pickett"},
+                            {"id": 4, "name": "Campos Flowers"},
+                            {"id": 5,  "name": "Kirkland Faulkner"}
+                          ]
+                        }]};
+    let userId = 4;
+    let result = Gene.update(state, ['groups[*].users[id=?]', userId], {name: 'XYZ'})
+    //it is flattening group collection and looks on each of them for user with id = 4 and updates its name to XYX
+    //result:
+    //              {groups: [
+    //                     {
+    //                       "name": "sit",
+    //                       "users": [
+    //                         {"id": 0, "name": "Lara Lowery"},
+    //                         {"id": 1, "name": "Gayle Whitfield"},
+    //                         {"id": 2, "name": "Shaw Schmidt"}]
+    //                     },
+    //                     {
+    //                       "name": "ad",
+    //                       "users": [
+    //                         {"id": 3, "name": "Ruby Pickett"},
+    //                         {"id": 4, "name": "XYZ"},
+    //                         {"id": 5,  "name": "Kirkland Faulkner"}
+    //                       ]
+    //                     }]};
+````
+
+
+## supported methods :
+
+- Gene.update(state, selector, object) - updates nested object found by selector like assign(i, x) from lodash
+- Gene.push(state, selector, object) - adds object to nested array
+- Gene.remove(state, selector) - removes object from array or from parent object
+- Gene.mutate(state) - allows fluid interfacet for chainig update operations.. to get final result invoke .value() method
+
+## slecotrs
+it uses json-query npm package under the hood so it suports all selectors from this awesome packange:
+https://www.npmjs.com/package/json-query
+
+
+for example:
+
+### Array filter
+
+By default **only the first** matching item will be returned:
+
+`people[name=Matt]`
+
+But if you add an asterisk (`*`), **all** matching items will be returned:
+
+`people[*country=NZ]`
+
+You can use comparative operators:
+
+`people[*rating>=3]`
+
 
 ## Motivation
 
@@ -83,7 +149,7 @@ export default function todos(state = initialState, action) {
 
 ````
 
-its pretty messy hard to read and hard to write. And above exaple is just a simple case scenario. situation is getting better when you try to update some nested property in your state.
+It's pretty messy, hard to read and hard to write. And above exaple is just a simple case scenario. situation is getting more comlicated when you try to update some nested property in your state.
 
 With usage of immutable-bene above code would look like below:
 
@@ -99,7 +165,7 @@ export default function todos(state = initialState, action) {
                                  });
     case DELETE_TODO:
       return Gene.remove(state, ['[id=?]', action.id]);
-      
+
     case EDIT_TODO:
       return Gene.update(state, ['[id=?]', action.id], {text: action.text });
 
@@ -119,5 +185,3 @@ export default function todos(state = initialState, action) {
 }
 
 ````
-
-
