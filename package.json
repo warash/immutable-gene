@@ -1,6 +1,6 @@
 {
   "name": "immutable-gene",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "helper library to remove boilplate code from reducers",
   "main": "lib/gene.js",
   "scripts": {
