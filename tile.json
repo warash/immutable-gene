@@ -17,5 +17,10 @@
   "detailNavigate": {
     "url": "http://nltapp0071wap-test-trans-calculator-web-app.azurewebsites.net/",
     "isNewWindow": true
+  },
+    "detail": {
+    "width": 500,
+    "height": 500,
+    "html": "<div class=\"decision-calculator\">   <div class=\"container\">     <span class=\"title\">Decision Calculator</span>     <i class=\"icon-calc fa fa-calculator\" aria-hidden=\"true\"></i>     <i class=\"icon-arrow fa fa-arrow-right\" aria-hidden=\"true\"></i>   </div> </div>  "
   }
 }
